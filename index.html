@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カスタム背景色チェンジャー</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: rgb(128, 128, 128);
+      transition: background-color 0.5s ease;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+    .sliders {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #colorInfo {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>カスタム背景色チェンジャー</h1>
+    <p>スライダーを動かして背景色を自由に変えてみましょう！</p>
+    
+    <div class="sliders">
+      <label>
+        <span>赤 (R): </span>
+        <input type="range" id="red" min="0" max="255" value="128">
+      </label>
+      <label>
+        <span>緑 (G): </span>
+        <input type="range" id="green" min="0" max="255" value="128">
+      </label>
+      <label>
+        <span>青 (B): </span>
+        <input type="range" id="blue" min="0" max="255" value="128">
+      </label>
+    </div>
+
+    <button id="randomButton">ランダム色にする</button>
+    <p id="colorInfo">現在の色: RGB(128, 128, 128)</p>
+  </div>
+
+  <script>
+    const redSlider = document.getElementById('red');
+    const greenSlider = document.getElementById('green');
+    const blueSlider = document.getElementById('blue');
+    const randomButton = document.getElementById('randomButton');
+
+    // スライダーの値を元に背景色を更新する関数
+    function updateBackgroundColor() {
+      const red = redSlider.value;
+      const green = greenSlider.value;
+      const blue = blueSlider.value;
+      document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+
+      // RGB値を表示
+      const colorInfo = document.getElementById('colorInfo');
+      if (colorInfo) {
+        colorInfo.textContent = `現在の色: RGB(${red}, ${green}, ${blue})`;
+      }
+    }
+
+    // スライダーが動いたときに背景色を変更
+    redSlider.addEventListener('input', updateBackgroundColor);
+    greenSlider.addEventListener('input', updateBackgroundColor);
+    blueSlider.addEventListener('input', updateBackgroundColor);
+
+    // ランダムな背景色にするボタンの動作
+    randomButton.addEventListener('click', () => {
+      const randomRed = Math.floor(Math.random() * 256);
+      const randomGreen = Math.floor(Math.random() * 256);
+      const randomBlue = Math.floor(Math.random() * 256);
+
+      redSlider.value = randomRed;
+      greenSlider.value = randomGreen;
+      blueSlider.value = randomBlue;
+
+      updateBackgroundColor();
+    });
+
+    // 初期状態で背景色を表示
+    window.onload = updateBackgroundColor;
+  </script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
