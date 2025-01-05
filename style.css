@@ -1,6 +1,0 @@
-#menu-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 自動調整 */
-  gap: 20px;
-  padding: 10px;
-}
