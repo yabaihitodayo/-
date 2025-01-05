@@ -1,88 +1,86 @@
-// script.js
-document.addEventListener("DOMContentLoaded", () => {
-  const menuSection = document.getElementById("menu-section");
-  const cartSection = document.getElementById("cart-section");
-  const cartItemsList = document.getElementById("cart-items");
-  const totalPriceElement = document.getElementById("total-price");
-  const goToCartButton = document.getElementById("go-to-cart");
-  const backToMenuButton = document.getElementById("back-to-menu");
-  const purchaseButton = document.getElementById("purchase-button");
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
 
-  let cart = []; // カート内の商品情報
+header {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}
 
-  // 数量ボタンの処理
-  document.querySelectorAll(".menu-item").forEach((menuItem) => {
-    const minusButton = menuItem.querySelector(".minus-button");
-    const plusButton = menuItem.querySelector(".plus-button");
-    const quantitySpan = menuItem.querySelector(".quantity");
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
 
-    minusButton.addEventListener("click", () => {
-      let quantity = parseInt(quantitySpan.textContent, 10);
-      if (quantity > 0) {
-        quantity--;
-        quantitySpan.textContent = quantity;
-      }
-    });
+h1, h2 {
+  margin: 0 0 20px;
+}
 
-    plusButton.addEventListener("click", () => {
-      let quantity = parseInt(quantitySpan.textContent, 10);
-      quantity++;
-      quantitySpan.textContent = quantity;
-    });
-  });
+#menu-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 
-  // カートを見るボタン
-  goToCartButton.addEventListener("click", () => {
-    cart = []; // カートを初期化して再構築
-    document.querySelectorAll(".menu-item").forEach((menuItem) => {
-      const itemName = menuItem.dataset.name;
-      const itemPrice = parseInt(menuItem.dataset.price, 10);
-      const quantity = parseInt(menuItem.querySelector(".quantity").textContent, 10);
+.menu-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 200px;
+}
 
-      if (quantity > 0) {
-        cart.push({ name: itemName, price: itemPrice, quantity: quantity });
-      }
-    });
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
 
-    renderCart();
-    menuSection.style.display = "none";
-    cartSection.style.display = "block";
-  });
+.minus-button, .plus-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
 
-  // メニューに戻るボタン
-  backToMenuButton.addEventListener("click", () => {
-    menuSection.style.display = "block";
-    cartSection.style.display = "none";
-  });
+#cart-items {
+  list-style: none;
+  padding: 0;
+}
 
-  // 購入ボタン
-  purchaseButton.addEventListener("click", () => {
-    alert("購入が完了しました！");
-    cart = [];
-    resetQuantities();
-    menuSection.style.display = "block";
-    cartSection.style.display = "none";
-  });
+#cart-items li {
+  margin-bottom: 10px;
+}
 
-  // カート内容をレンダリング
-  function renderCart() {
-    cartItemsList.innerHTML = "";
-    let total = 0;
+button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px 0;
+  transition: background 0.3s;
+}
 
-    cart.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = `${item.name} x${item.quantity} - ¥${item.price * item.quantity}`;
-      cartItemsList.appendChild(li);
-      total += item.price * item.quantity;
-    });
-
-    totalPriceElement.textContent = `合計金額: ¥${total}`;
-  }
-
-  // 数量をリセット
-  function resetQuantities() {
-    document.querySelectorAll(".quantity").forEach((quantitySpan) => {
-      quantitySpan.textContent = "0";
-    });
-  }
-});
+button:hover {
+  background: #45a049;
+}
