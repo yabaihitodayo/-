@@ -16,17 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const plusButton = menuItem.querySelector(".plus-button");
     const quantitySpan = menuItem.querySelector(".quantity");
 
+    // 数量を減らす
     minusButton.addEventListener("click", () => {
       let quantity = parseInt(quantitySpan.textContent, 10);
       if (quantity > 0) {
-        quantity--;
+        quantity--; // 数量を減らす
         quantitySpan.textContent = quantity;
       }
     });
 
+    // 数量を増やす
     plusButton.addEventListener("click", () => {
       let quantity = parseInt(quantitySpan.textContent, 10);
-      quantity++;
+      quantity++; // 数量を増やす
       quantitySpan.textContent = quantity;
     });
   });
@@ -57,7 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 購入ボタン
   purchaseButton.addEventListener("click", () => {
-    alert("購入が完了しました！");
+    if (cart.length === 0) {
+      alert("カートが空です。商品を追加してください。");
+      return;
+    }
+
+    // PDFを生成してダウンロード
+    generatePDF();
+
+    // カートをリセット
     cart = [];
     resetQuantities();
     menuSection.style.display = "block";
@@ -84,5 +94,28 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".quantity").forEach((quantitySpan) => {
       quantitySpan.textContent = "0";
     });
+  }
+
+  // PDFを生成する関数
+  function generatePDF() {
+    const { jsPDF } = window.jspdf; // jsPDFライブラリを使用
+    const doc = new jsPDF();
+
+    // タイトル
+    doc.setFontSize(16);
+    doc.text("購入した食券", 10, 10);
+
+    // カート内容をPDFに記載
+    cart.forEach((item, index) => {
+      const yPosition = 20 + index * 10; // 各商品の位置
+      doc.text(`${index + 1}. ${item.name} x${item.quantity} - ¥${item.price * item.quantity}`, 10, yPosition);
+    });
+
+    // 合計金額を追加
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    doc.text(`合計金額: ¥${total}`, 10, 20 + cart.length * 10);
+
+    // PDFをダウンロード
+    doc.save("ticket.pdf");
   }
 });
