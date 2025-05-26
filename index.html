@@ -1,60 +1,150 @@
 <!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>食券体験サイト</title>
-  <link rel="stylesheet" href="style.css">
+  <title>服装チェック表</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      text-align: center;
+    }
+    button {
+      margin: 2px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>食券体験サイト</h1>
-  </header>
-  <main>
-    <!-- メニューセクション -->
-    <section id="menu-section">
-      <h2>メニュー</h2>
-      <div id="menu-container">
-        <div class="menu-item" data-name="ラーメン" data-price="800">
-          <h3>ラーメン</h3>
-          <p>¥800</p>
-          <div class="quantity-controls">
-            <button class="minus-button">−</button>
-            <span class="quantity">0</span>
-            <button class="plus-button">＋</button>
-          </div>
-        </div>
-        <div class="menu-item" data-name="カレー" data-price="700">
-          <h3>カレー</h3>
-          <p>¥700</p>
-          <div class="quantity-controls">
-            <button class="minus-button">−</button>
-            <span class="quantity">0</span>
-            <button class="plus-button">＋</button>
-          </div>
-        </div>
-        <div class="menu-item" data-name="おにぎり" data-price="300">
-          <h3>おにぎり</h3>
-          <p>¥300</p>
-          <div class="quantity-controls">
-            <button class="minus-button">−</button>
-            <span class="quantity">0</span>
-            <button class="plus-button">＋</button>
-          </div>
-        </div>
-      </div>
-      <button id="go-to-cart">カートを見る</button>
-    </section>
 
-    <!-- カートセクション -->
-    <section id="cart-section" style="display: none;">
-      <h2>カートの内容</h2>
-      <ul id="cart-items"></ul>
-      <p id="total-price"></p>
-      <button id="purchase-button">購入</button>
-      <button id="back-to-menu">メニューに戻る</button>
-    </section>
-  </main>
-  <script src="script.js"></script>
+<h2>生活整備員 服装チェック表</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>項目</th>
+      <th>1班</th>
+      <th>2班</th>
+      <th>3班</th>
+      <th>4班</th>
+      <th>5班</th>
+      <th>6班</th>
+      <th>合計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 各項目をここで定義 -->
+    <!-- 項目のリスト -->
+    <script>
+      const items = ["ベルト", "クラス章", "スカート", "ハンカチ", "爪", "靴下"];
+    </script>
+    <!-- JavaScriptで動的に生成する方が効率的だが、ここではHTMLで手動展開 -->
+    <tr>
+      <td>ベルト</td>
+      <td><button onclick="changeValue('belt1', -1)">-</button> <span id="belt1">0</span> <button onclick="changeValue('belt1', 1)">+</button></td>
+      <td><button onclick="changeValue('belt2', -1)">-</button> <span id="belt2">0</span> <button onclick="changeValue('belt2', 1)">+</button></td>
+      <td><button onclick="changeValue('belt3', -1)">-</button> <span id="belt3">0</span> <button onclick="changeValue('belt3', 1)">+</button></td>
+      <td><button onclick="changeValue('belt4', -1)">-</button> <span id="belt4">0</span> <button onclick="changeValue('belt4', 1)">+</button></td>
+      <td><button onclick="changeValue('belt5', -1)">-</button> <span id="belt5">0</span> <button onclick="changeValue('belt5', 1)">+</button></td>
+      <td><button onclick="changeValue('belt6', -1)">-</button> <span id="belt6">0</span> <button onclick="changeValue('belt6', 1)">+</button></td>
+      <td><span id="beltSum">0</span></td>
+    </tr>
+
+    <tr>
+      <td>クラス章</td>
+      <td><button onclick="changeValue('class1', -1)">-</button> <span id="class1">0</span> <button onclick="changeValue('class1', 1)">+</button></td>
+      <td><button onclick="changeValue('class2', -1)">-</button> <span id="class2">0</span> <button onclick="changeValue('class2', 1)">+</button></td>
+      <td><button onclick="changeValue('class3', -1)">-</button> <span id="class3">0</span> <button onclick="changeValue('class3', 1)">+</button></td>
+      <td><button onclick="changeValue('class4', -1)">-</button> <span id="class4">0</span> <button onclick="changeValue('class4', 1)">+</button></td>
+      <td><button onclick="changeValue('class5', -1)">-</button> <span id="class5">0</span> <button onclick="changeValue('class5', 1)">+</button></td>
+      <td><button onclick="changeValue('class6', -1)">-</button> <span id="class6">0</span> <button onclick="changeValue('class6', 1)">+</button></td>
+      <td><span id="classSum">0</span></td>
+    </tr>
+
+    <tr>
+      <td>スカート</td>
+      <td><button onclick="changeValue('skirt1', -1)">-</button> <span id="skirt1">0</span> <button onclick="changeValue('skirt1', 1)">+</button></td>
+      <td><button onclick="changeValue('skirt2', -1)">-</button> <span id="skirt2">0</span> <button onclick="changeValue('skirt2', 1)">+</button></td>
+      <td><button onclick="changeValue('skirt3', -1)">-</button> <span id="skirt3">0</span> <button onclick="changeValue('skirt3', 1)">+</button></td>
+      <td><button onclick="changeValue('skirt4', -1)">-</button> <span id="skirt4">0</span> <button onclick="changeValue('skirt4', 1)">+</button></td>
+      <td><button onclick="changeValue('skirt5', -1)">-</button> <span id="skirt5">0</span> <button onclick="changeValue('skirt5', 1)">+</button></td>
+      <td><button onclick="changeValue('skirt6', -1)">-</button> <span id="skirt6">0</span> <button onclick="changeValue('skirt6', 1)">+</button></td>
+      <td><span id="skirtSum">0</span></td>
+    </tr>
+
+    <tr>
+      <td>ハンカチ</td>
+      <td><button onclick="changeValue('hankachi1', -1)">-</button> <span id="hankachi1">0</span> <button onclick="changeValue('hankachi1', 1)">+</button></td>
+      <td><button onclick="changeValue('hankachi2', -1)">-</button> <span id="hankachi2">0</span> <button onclick="changeValue('hankachi2', 1)">+</button></td>
+      <td><button onclick="changeValue('hankachi3', -1)">-</button> <span id="hankachi3">0</span> <button onclick="changeValue('hankachi3', 1)">+</button></td>
+      <td><button onclick="changeValue('hankachi4', -1)">-</button> <span id="hankachi4">0</span> <button onclick="changeValue('hankachi4', 1)">+</button></td>
+      <td><button onclick="changeValue('hankachi5', -1)">-</button> <span id="hankachi5">0</span> <button onclick="changeValue('hankachi5', 1)">+</button></td>
+      <td><button onclick="changeValue('hankachi6', -1)">-</button> <span id="hankachi6">0</span> <button onclick="changeValue('hankachi6', 1)">+</button></td>
+      <td><span id="hankachiSum">0</span></td>
+    </tr>
+
+    <tr>
+      <td>爪</td>
+      <td><button onclick="changeValue('nail1', -1)">-</button> <span id="nail1">0</span> <button onclick="changeValue('nail1', 1)">+</button></td>
+      <td><button onclick="changeValue('nail2', -1)">-</button> <span id="nail2">0</span> <button onclick="changeValue('nail2', 1)">+</button></td>
+      <td><button onclick="changeValue('nail3', -1)">-</button> <span id="nail3">0</span> <button onclick="changeValue('nail3', 1)">+</button></td>
+      <td><button onclick="changeValue('nail4', -1)">-</button> <span id="nail4">0</span> <button onclick="changeValue('nail4', 1)">+</button></td>
+      <td><button onclick="changeValue('nail5', -1)">-</button> <span id="nail5">0</span> <button onclick="changeValue('nail5', 1)">+</button></td>
+      <td><button onclick="changeValue('nail6', -1)">-</button> <span id="nail6">0</span> <button onclick="changeValue('nail6', 1)">+</button></td>
+      <td><span id="nailSum">0</span></td>
+    </tr>
+
+    <tr>
+      <td>靴下</td>
+      <td><button onclick="changeValue('socks1', -1)">-</button> <span id="socks1">0</span> <button onclick="changeValue('socks1', 1)">+</button></td>
+      <td><button onclick="changeValue('socks2', -1)">-</button> <span id="socks2">0</span> <button onclick="changeValue('socks2', 1)">+</button></td>
+      <td><button onclick="changeValue('socks3', -1)">-</button> <span id="socks3">0</span> <button onclick="changeValue('socks3', 1)">+</button></td>
+      <td><button onclick="changeValue('socks4', -1)">-</button> <span id="socks4">0</span> <button onclick="changeValue('socks4', 1)">+</button></td>
+      <td><button onclick="changeValue('socks5', -1)">-</button> <span id="socks5">0</span> <button onclick="changeValue('socks5', 1)">+</button></td>
+      <td><button onclick="changeValue('socks6', -1)">-</button> <span id="socks6">0</span> <button onclick="changeValue('socks6', 1)">+</button></td>
+      <td><span id="socksSum">0</span></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<script>
+function changeValue(id, delta) {
+  const span = document.getElementById(id);
+  let value = parseInt(span.textContent);
+  value = Math.max(0, value + delta);
+  span.textContent = value;
+
+  // 合計欄を更新
+  const match = id.match(/^([a-z]+)(\d)$/);
+  if (match) {
+    const prefix = match[1];
+    updateSum(prefix, 6, prefix + "Sum");
+  }
+}
+
+function updateSum(prefix, count, sumId) {
+  let total = 0;
+  for (let i = 1; i <= count; i++) {
+    total += parseInt(document.getElementById(prefix + i).textContent);
+  }
+  document.getElementById(sumId).textContent = total;
+}
+</script>
+
+</body>
+</html>
+<!-- partial -->
+  
 </body>
 </html>
