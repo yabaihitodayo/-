@@ -1,7 +1,6 @@
-const items = ["belt", "class", "skirt", "hankachi", "nail", "socks"];
+const items = ["belt","hankachi", "nail", "socks"];
 const labels = {
-  belt: "ベルト", class: "クラス章", skirt: "スカート",
-  hankachi: "ハンカチ", nail: "爪", socks: "靴下"
+  belt: "ベルト",hankachi: "ハンカチ",nail: "爪", socks: "靴下"
 };
 
 let currentValues = {};
