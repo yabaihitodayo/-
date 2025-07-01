@@ -79,5 +79,64 @@ function resetData() {
   items.forEach(updateSum);
   alert("現在の値に戻しました。");
 }
+function loadData() {
+  const data = JSON.parse(localStorage.getItem("checkValues") || "{}");
+  if (Object.keys(data).length === 0) {
+    alert("保存されたデータがありません。");
+    return;
+  }
+
+  savedValues = { ...data };
+
+  for (const id in data) {
+    const span = document.getElementById(id);
+    if (span) {
+      const oldValue = parseInt(data[id]);
+      const newValue = parseInt(span.textContent);
+      const diff = oldValue - newValue;
+
+      span.textContent = oldValue;
+
+      // 差分表示
+      let diffElement = document.getElementById(id + "_diff");
+      if (!diffElement) {
+        diffElement = document.createElement("div");
+        diffElement.id = id + "_diff";
+        span.parentElement.appendChild(diffElement);
+      }
+
+      if (diff > 0) {
+        diffElement.textContent = `（+${diff}）`;
+        diffElement.style.color = "blue";
+      } else if (diff < 0) {
+        diffElement.textContent = `（${diff}）`;
+        diffElement.style.color = "red";
+      } else {
+        diffElement.textContent = `（±0）`;
+        diffElement.style.color = "gray";
+      }
+
+      currentValues[id] = oldValue;
+    }
+  }
+
+  items.forEach(updateSum);
+  alert("前回の結果を表示しました。");
+}
 
 window.onload = generateTable;
+function resetData() {
+  for (const id in currentValues) {
+    const span = document.getElementById(id);
+    span.textContent = currentValues[id];
+
+    // 差分を削除
+    const diffElement = document.getElementById(id + "_diff");
+    if (diffElement) {
+      diffElement.remove();
+    }
+  }
+
+  items.forEach(updateSum);
+  alert("現在の値に戻しました。");
+}
