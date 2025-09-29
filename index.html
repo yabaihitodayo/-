@@ -1,63 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  <link rel="stylesheet" href="style.css">
-
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>服装チェック表（保存付き）</title>
+  <meta charset="UTF-8" />
+  <title>リアルタイムチャット</title>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 6px;
-      text-align: center;
-    }
-    button {
-      margin: 2px;
-    }
+    body { font-family: sans-serif; padding: 20px; }
+    #messages { height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+    #input { width: 80%; }
   </style>
 </head>
 <body>
 
-<h2>生活整備員 服装チェック表</h2>
+<h2>リアルタイムチャット</h2>
+<div id="messages"></div>
+<input id="input" placeholder="メッセージを入力">
+<button onclick="sendMessage()">送信</button>
 
-<button onclick="saveData()">保存する</button>
-<button onclick="loadData()">前回の結果を表示</button>
-<br><br>
+<script>
+  // Glitch のサーバーURLをここに書く（例: 'https://your-glitch-project.glitch.me'）
+  const socket = io("https://your-glitch-project.glitch.me");
 
-<table>
-  <thead>
-    <tr>
-      <th>項目</th>
-      <th>1班</th>
-      <th>2班</th>
-      <th>3班</th>
-      <th>4班</th>
-      <th>5班</th>
-      <th>6班</th>
-      <th>合計</th>
-    </tr>
-  </thead>
-</h6>頑張って作ったから褒めて</h6>
-  <tbody id="tableBody">
-    <!-- JSで内容を生成 -->
-  </tbody>
-</table>
+  socket.on("chat message", function(msg) {
+    const div = document.getElementById("messages");
+    const p = document.createElement("p");
+    p.textContent = msg;
+    div.appendChild(p);
+  });
 
-<script src="script.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
+  function sendMessage() {
+    const input = document.getElementById("input");
+    const msg = input.value;
+    if (msg) {
+      socket.emit("chat message", msg);
+      input.value = "";
+    }
+  }
+</script>
 
 </body>
 </html>
